@@ -1,0 +1,5 @@
+self: play -> coalmine 0.0.1
+
+require:
+    - play
+    - com.coalmine -> coalmine-connector 0.1.6

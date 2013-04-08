@@ -52,7 +52,9 @@ Coalmine detects whether your application is in development mode or production m
 
 **coalmine.enabledEnvironments**
 
-A comma-delimited list of environments that Coalmine is enabled for.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".  Note that "DEV" and "PROD" modes are called "development" and "production", respectively.
+A comma-delimited list of environments that Coalmine is enabled for.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
+
+*Note that "DEV" and "PROD" modes are called "development" and "production", respectively.*
 
 **coalmine.timeout**
 

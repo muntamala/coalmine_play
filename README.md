@@ -54,6 +54,8 @@ Coalmine detects whether your application is in development mode or production m
 
 A comma-delimited list of environments that Coalmine is enabled for.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
 
+*Note that "DEV" and "PROD" modes are called "development" and "production", respectively.*
+
 **coalmine.timeout**
 
 The timeout for a request to Coalmine, in milliseconds.  The default is 5000, or 5 seconds.

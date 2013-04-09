@@ -70,6 +70,10 @@ public class CoalminePlugin extends PlayPlugin {
     
     @Override
     public void onInvocationException(Throwable e) {
+        this.notify(e);
+    }
+    
+    public void notify(Throwable e) {
         if (this.connector == null) {
             Logger.warn("Cannot report error to Coalmine: '%s' must be set in application.conf", PROPERTY_SIGNATURE);
             return;

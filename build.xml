@@ -2,7 +2,7 @@
 
 <project name="coalmine" default="build" basedir=".">
 
-    <property name="version" value="0.0.1" />
+    <property name="version" value="0.0.2" />
     
     <target name="check" unless="play.path">
         <fail message="Please specify Play framework path using -Dplay.path=/path/to/framework/home" />

@@ -61,3 +61,32 @@ The timeout for a request to Coalmine, in milliseconds.  The default is 5000, or
 **coalmine.version**
 
 Your application version.  The default is "1.0.0".
+
+Usage
+-----
+
+Your app will automatically notify Coalmine whenever an exception is raised.
+
+However, if no exceptions are sent, your app is most likely intercepting the exception before it reaches the Coalmine plugin.  For example, say you have a catch-all method, like so:
+
+    public class Application extends Controller {
+        @Catch(value = Exception.class, priority = 1)
+        public static void handleException(Throwable e) {
+            render("/public/500.html");
+        }
+        // ...
+    }
+
+You will want to manually notify Coalmine in this case.
+
+    import play.modules.coalmine.CoalminePlugin;
+    
+    public class Application extends Controller {
+        @Catch(value = Exception.class, priority = 1)
+        public static void handleException(Throwable e) {
+            CoalminePlugin coalmine = Play.plugin(CoalminePlugin.class);
+            coalmine.notify(e);
+            render("/public/500.html");
+        }
+        // ...
+    }

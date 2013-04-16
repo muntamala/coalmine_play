@@ -48,9 +48,7 @@ The signature for your application.  *This is required.*
 
 **coalmine.enabledEnvironments**
 
-A comma-delimited list of environments that Coalmine is enabled for.  Environments are framework IDs--of the kind specified by commands such as `play run --%staging`.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
-
-*Note that "DEV" and "PROD" modes are called "development" and "production", respectively.*
+A comma-delimited list of environments that Coalmine is enabled for.  Environments are framework IDs, specified by commands such as `play run --%staging`.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
 
 **coalmine.timeout**
 

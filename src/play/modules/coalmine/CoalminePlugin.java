@@ -9,6 +9,7 @@ import play.Play;
 import play.PlayPlugin;
 import play.mvc.Http.Request;
 
+import java.net.URL;
 import java.util.Map;
 
 public class CoalminePlugin extends PlayPlugin {
@@ -20,7 +21,7 @@ public class CoalminePlugin extends PlayPlugin {
     private static final String PROPERTY_VERSION = "coalmine.version";
     
     private static final String DEFAULT_ENABLED_ENVIRONMENTS = "production,staging";
-    private static final String DEFAULT_URL = "https://coalmineapp.com/notify";
+    private static final String DEFAULT_URL = "https://coalmineapp.com/events";
     private static final String DEFAULT_TIMEOUT = "5000";
     private static final String DEFAULT_VERSION = "1.0.0";
     
@@ -28,20 +29,28 @@ public class CoalminePlugin extends PlayPlugin {
     
     @Override
     public void onConfigurationRead() {
+        // Get signature
         String signature = Play.configuration.getProperty(PROPERTY_SIGNATURE);
+        
+        if (signature != null
+                && this.isConfigExpression(PROPERTY_SIGNATURE, signature)) {
+            signature = null;
+        }
         
         if (signature == null) {
             return; // Not configured properly
         }
         
-        String environment = null;
-        if (Play.mode.isProd()) {
-            environment = "production";
-        } else if (Play.mode.isDev()) {
-            environment = "development";
-        } else {
-            environment = Play.configuration.getProperty(PROPERTY_ENVIRONMENT);
+        // Get URL
+        String url = Play.configuration.getProperty(
+            PROPERTY_URL, DEFAULT_URL);
+        
+        if (this.isConfigExpression(PROPERTY_URL, url)) {
+            url = DEFAULT_URL;
         }
+        
+        // Get the rest of the settings
+        String environment = Play.id;
         
         String enabledEnvironmentsString = Play.configuration.getProperty(
             PROPERTY_ENABLED_ENVIRONMENTS, DEFAULT_ENABLED_ENVIRONMENTS);
@@ -51,12 +60,10 @@ public class CoalminePlugin extends PlayPlugin {
             PROPERTY_TIMEOUT, DEFAULT_TIMEOUT);
         int timeout = Integer.parseInt(timeoutString);
         
-        String url = Play.configuration.getProperty(
-            PROPERTY_URL, DEFAULT_URL);
-        
         String version = Play.configuration.getProperty(
             PROPERTY_VERSION, DEFAULT_VERSION);
         
+        // Set settings
         this.connector = new SimpleConnector(signature);
         this.connector.setApplicationEnvironment(environment);
         this.connector.setTimeout(timeout);
@@ -75,7 +82,8 @@ public class CoalminePlugin extends PlayPlugin {
     
     public void notify(Throwable e) {
         if (this.connector == null) {
-            Logger.warn("Cannot report error to Coalmine: '%s' must be set in application.conf", PROPERTY_SIGNATURE);
+            Logger.error("[coalmine] Cannot report error: '%s' must be set in application.conf",
+                PROPERTY_SIGNATURE);
             return;
         }
         
@@ -83,5 +91,13 @@ public class CoalminePlugin extends PlayPlugin {
         HttpRequest coalmineRequest = new HttpRequest(Request.current());
         notification.setRequest(coalmineRequest);
         this.connector.send(notification);
+    }
+    
+    public Connector getConnector() {
+        return this.connector;
+    }
+    
+    private boolean isConfigExpression(String setting, String value) {
+        return String.format("${%s}", setting).equals(value);
     }
 }

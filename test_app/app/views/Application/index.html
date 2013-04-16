@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Play Framework Connector for Coalmine - Test App</title>
+  #{stylesheet "application.css" /}
+</head>
+<body>
+  <div id="header">
+    <div class="content">
+      <h1>Play Framework Connector for Coalmine</h1>
+    </div>
+  </div>
+  
+  #{set coalmine:play.plugin(play.modules.coalmine.CoalminePlugin).getConnector() /}
+  
+  #{if get("coalmine") != null}
+    #{set signature:play.configuration["coalmine.signature"] /}
+    #{set url:get("coalmine").getUrl() /}
+  #{/if}
+  #{else}
+    #{set signature:"null" /}
+    #{set url:"null" /}
+  #{/else}
+  
+  <div id="configuration">
+    <ul>
+      <li>
+        <span class="label">URL</span>
+        <span>#{get "url" /}</span>
+      </li>
+      <li>
+        <span class="label">Signature</span>
+        <span>#{get "signature" /}</span>
+      </li>
+    </ul>
+  </div>
+  
+  <div id="tests">
+    <div class="content">
+      #{if get("coalmine") != null}
+        <ul>
+          <li><a class="error" href="/exception">RuntimeException</a></li>
+        </ul>
+      #{/if}
+      #{else}
+        <h2>Configuration Error</h2>
+        <p>Start the app with the following command:
+          
+          <p><code>play run --%test -Dcoalmine.signature=&lt;your-signature&gt;</code></p>
+                    
+          <p>Without a signature, this application will not work.</p>
+        <p>For more information, see <code>test_app/README.md</code>.</p>
+      #{/else}
+    </div>
+  </div>
+</body>
+</html>

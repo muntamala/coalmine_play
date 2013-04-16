@@ -21,7 +21,7 @@ Setup
 
 2\. Unzip the file into a directory named `coalmine-{version}`
 
-3\. Move this directory into the `modules` directory of your framework installation
+3\. Move this directory into the `modules` directory of your *framework* (not application) installation
 
 4\. Add the module as a dependency in your application:
 

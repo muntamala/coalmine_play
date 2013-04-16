@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  background-color: #EEEEEE;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.content {
+  margin-left: 20px;
+}
+
+#header {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #1A1C1E;
+}
+
+#header h1 {
+  margin: 0;
+  color: #A1AEB4;
+  font-size: 33px;
+  letter-spacing: -1px;
+  line-height: 39px;
+}
+
+#configuration {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #30353B;
+}
+
+#configuration ul {
+  padding-left: 25px;
+  list-style-type: none;
+}
+
+#configuration li {
+  color: #CCCCCC;
+  font-size: 19px;
+  line-height: 30px;
+}
+
+#configuration .label {
+  margin-right: 5px;
+  color: #EEEEEE;
+  font-weight: bold;
+}
+
+#tests {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #E9E9E9;
+}
+
+#tests h2 {
+  margin-top: 0;
+}
+
+#tests p {
+  margin: 0;
+  margin-top: 10px;
+}
+
+#tests ul {
+  margin: 0;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#tests li:before {
+  content: "\272A";
+  margin-right: 7px;
+}
+
+#tests a.error {
+  color: #AE001A;
+}
+
+#tests a.warning {
+  color: #FF4700;
+}
+
+#tests a.notice {
+  color: #FFB400;
+}
+
+#tests a.info {
+  color: #23B3F0;
+}

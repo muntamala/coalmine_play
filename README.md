@@ -46,13 +46,9 @@ The following options are available:
 
 The signature for your application.  *This is required.*
 
-**coalmine.environment**
-
-Coalmine detects whether your application is in development mode or production mode.  If you use a special mode (such as "staging"), you must specify that here.  For example, `%staging.coalmine.environment=staging`.
-
 **coalmine.enabledEnvironments**
 
-A comma-delimited list of environments that Coalmine is enabled for.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
+A comma-delimited list of environments that Coalmine is enabled for.  Environments are framework IDs--of the kind specified by commands such as `play run --%staging`.  Exceptions thrown for apps running in a different environment will not be sent to Coalmine.  The default is "production,staging".
 
 *Note that "DEV" and "PROD" modes are called "development" and "production", respectively.*
 

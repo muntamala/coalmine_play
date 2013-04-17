@@ -15,20 +15,26 @@ You can always find the latest source code on [GitHub](https://github.com/coalmi
 Setup
 -----
 
-***Note:*** *The official Play 1.x module repository for the `play install` command is now read-only, so we'll have to do this the hard way.  Thankfully, the hard way is just five steps.  ;-)*
+1. [Download the module.](https://github.com/coalmine/coalmine_play/raw/master/dist/coalmine-0.1.0.zip)
 
-1\. From the `dist` directory, download `coalmine-{version}.zip`, where "{version}" is the latest version of this connector.
+2. Create a directory in your application named `repo`.
 
-2\. Unzip the file into a directory named `coalmine-{version}`
+3. Unzip the file into `repo/coalmine-0.1.0`
 
-3\. Move this directory into the `modules` directory of your *framework* (not application) installation
+4. Add the module as a dependency in your application:
 
-4\. Add the module as a dependency in your application:
+        require:
+            - play
+            - coalmine -> coalmine
+    
+        repositories:
+            - coalmine:
+                type: local
+                artifact: "${application.path}/repo/coalmine-0.1.0"
+                contains:
+                    - coalmine
 
-    require:
-        - play -> coalmine {version}
-
-5\. Run `play deps` within your application directory
+5. Run `play deps` within your application directory.
 
 Configuration
 -------------
@@ -37,7 +43,7 @@ Add the following block in `conf/application.conf`, with values appropriate to y
 
     # Coalmine
     # ~~~~~
-    coalmine.signature=MY_COALMINE_SIGNATURE
+    coalmine.signature=<your-signature>
     coalmine.version=1.0.0
 
 The following options are available:

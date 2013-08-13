@@ -88,16 +88,22 @@ public class CoalminePlugin extends PlayPlugin {
         }
         
         LoggedNotification notification = new LoggedNotification(e);
-        HttpRequest coalmineRequest = new HttpRequest(Request.current());
-        notification.setRequest(coalmineRequest);
+        if (isWebRequest()) {
+        	HttpRequest coalmineRequest = new HttpRequest(Request.current());
+        	notification.setRequest(coalmineRequest);
+        }
         this.connector.send(notification);
     }
-    
+
     public Connector getConnector() {
         return this.connector;
     }
     
     private boolean isConfigExpression(String setting, String value) {
         return String.format("${%s}", setting).equals(value);
+    }
+
+    private boolean isWebRequest() {
+    	return Request.current() != null;
     }
 }
